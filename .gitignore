@@ -1,4 +1,5 @@
 build
+.vscode
 # Prerequisites
 *.d
 
@@ -16,6 +17,7 @@ build
 # Precompiled Headers
 *.gch
 *.pch
+
 
 # Libraries
 *.lib
