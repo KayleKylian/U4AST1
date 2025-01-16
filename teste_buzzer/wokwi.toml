@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/teste_buzzer.hex'
+elf = 'build/teste_buzzer.elf'
