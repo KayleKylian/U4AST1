@@ -56,6 +56,17 @@ char teclaPressionada() {
 
     return '\0';  // Nenhuma tecla pressionada
 }
+
+// Funcao para piscar o led vermelho
+void piscarLEDVermelho() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(RED, 1);
+        sleep_ms(200);
+        gpio_put(RED, 0);
+        sleep_ms(200);
+    }
+}
+
 void loop(){
   while(true){
     char key = teclaPressionada();
@@ -70,13 +81,16 @@ void loop(){
     case '3':
       gpio_put(GREEN,1);
       break;
+    case '4':
+      piscarLEDVermelho();
+      break;
     default:
       break;
     }
     sleep_ms(100);
   }
-  
 }
+
 int main()
 {
   iniciarTeclado();
