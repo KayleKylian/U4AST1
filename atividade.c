@@ -25,6 +25,7 @@ void init_leds_and_buzzer();
 char get_key();
 void control_led_and_buzzer(char key);
 void piscarLEDVermelho();
+void acionarLEDsEmSequencia();
 
 // Entrada do Código
 int main() {
@@ -121,6 +122,9 @@ void control_led_and_buzzer(char key) {
             sleep_ms(500); // Toca o buzzer por 500ms
             gpio_put(BUZZER, 0);
             break;
+        case '#': // Nova funcionalidade: executar acionamento automático dos LEDs
+            acionarLEDsEmSequencia();
+            break;
         default:
             printf("Tecla %c pressionada, sem ação definida.\n", key);
             break;
@@ -135,4 +139,27 @@ void piscarLEDVermelho() {
         gpio_put(LED_RED, 0);
         sleep_ms(200);
     }
+}
+void acionarLEDsEmSequencia() {
+    // Liga o LED vermelho por 1 segundo
+    gpio_put(LED_RED, 1);
+    printf("LED vermelho aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_RED, 0);
+
+    // Liga o LED verde por 1 segundo
+    gpio_put(LED_GREEN, 1);
+    printf("LED verde aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_GREEN, 0);
+
+    // Liga o LED azul por 1 segundo
+    gpio_put(LED_BLUE, 1);
+    printf("LED azul aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_BLUE, 0);
+
+    // Mensagem de conclusão
+    printf("Todas as cores do LED foram exibidas.\n");
+    printf("LED RGB está OK. Teste finalizado.\n");
 }
