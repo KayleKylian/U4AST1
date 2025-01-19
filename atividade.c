@@ -24,15 +24,14 @@ void init_keypad();
 void init_leds_and_buzzer();
 char get_key();
 void control_led_and_buzzer(char key);
-void piscarLEDVermelho();
-void acionarLEDsEmSequencia();
 void piscar_led_vermelho();
 void piscar_led_verde();
 void piscar_led_azul();
+void acionar_led_sequencia();
 
 // Entrada do Código
 int main() {
-    // stdio_init_all();
+    //stdio_init_all();
     init_keypad();
     init_leds_and_buzzer();
     printf("Sistema iniciado. Pressione as teclas do teclado.\n");
@@ -130,14 +129,14 @@ void control_led_and_buzzer(char key) {
             sleep_ms(500); // Toca o buzzer por 500ms
             gpio_put(BUZZER, 0);
             break;
-        case '#': // Nova funcionalidade: executar acionamento automático dos LEDs
-            acionarLEDsEmSequencia();
+        case '#':
+            acionar_led_sequencia();
             break;
-        default:
-            printf("Tecla %c pressionada, sem ação definida. Apagando os LEDs.\n", key);
+        default: // apaga os leds que estiverem ligados
+            printf("Tecla %c pressionada, sem ação definida. Apagando os leds.\n", key);
             gpio_put(LED_RED, 0);
-            gpio_put(LED_GREEN, 0);
             gpio_put(LED_BLUE, 0);
+            gpio_put(LED_GREEN, 0);
             break;
     }
 }
@@ -172,7 +171,7 @@ void piscar_led_vermelho() {
     }
 }
 
-void acionarLEDsEmSequencia() {
+void acionar_led_sequencia() {
     // Liga o LED vermelho por 1 segundo
     gpio_put(LED_RED, 1);
     printf("LED vermelho aceso...\n");
