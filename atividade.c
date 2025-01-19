@@ -24,7 +24,7 @@ void init_keypad();
 void init_leds_and_buzzer();
 char get_key();
 void control_led_and_buzzer(char key);
-void piscarLEDVermelho();
+void piscar_led_vermelho();
 void piscar_led_verde();
 void piscar_led_azul();
 
@@ -116,7 +116,7 @@ void control_led_and_buzzer(char key) {
             gpio_put(LED_GREEN, 1); // Liga o LED verde
             break;
         case '4':
-            piscarLEDVermelho();
+            piscar_led_vermelho();
             break;
         case '5':
             piscar_led_verde();
@@ -155,7 +155,7 @@ void piscar_led_azul() {
 
 
 // Funcao para piscar o led vermelho
-void piscarLEDVermelho() {
+void piscar_led_vermelho() {
     for (int i = 0; i < 3; i++) {
         gpio_put(LED_RED, 1);
         sleep_ms(200);
