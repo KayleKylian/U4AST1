@@ -26,10 +26,13 @@ char get_key();
 void control_led_and_buzzer(char key);
 void piscarLEDVermelho();
 void acionarLEDsEmSequencia();
+void piscar_led_vermelho();
+void piscar_led_verde();
+void piscar_led_azul();
 
 // Entrada do Código
 int main() {
-    //stdio_init_all();
+    // stdio_init_all();
     init_keypad();
     init_leds_and_buzzer();
     printf("Sistema iniciado. Pressione as teclas do teclado.\n");
@@ -44,7 +47,6 @@ int main() {
     }
     return 0;
 }
-
 
 // Função para inicializar o teclado matricial
 void init_keypad() {
@@ -115,7 +117,13 @@ void control_led_and_buzzer(char key) {
             gpio_put(LED_GREEN, 1); // Liga o LED verde
             break;
         case '4':
-            piscarLEDVermelho();
+            piscar_led_vermelho();
+            break;
+        case '5':
+            piscar_led_verde();
+            break;
+        case '6':
+            piscar_led_azul();
             break;
         case '*':
             gpio_put(BUZZER, 1);
@@ -126,13 +134,36 @@ void control_led_and_buzzer(char key) {
             acionarLEDsEmSequencia();
             break;
         default:
-            printf("Tecla %c pressionada, sem ação definida.\n", key);
+            printf("Tecla %c pressionada, sem ação definida. Apagando os LEDs.\n", key);
+            gpio_put(LED_RED, 0);
+            gpio_put(LED_GREEN, 0);
+            gpio_put(LED_BLUE, 0);
             break;
     }
 }
 
+// Funcao para piscar o led verde
+void piscar_led_verde() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_GREEN, 1);
+        sleep_ms(200);
+        gpio_put(LED_GREEN, 0);
+        sleep_ms(200);
+    }
+}
+
+// Funcao para piscar o led azul
+void piscar_led_azul() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_BLUE, 1);
+        sleep_ms(200);
+        gpio_put(LED_BLUE, 0);
+        sleep_ms(200);
+    }
+}
+
 // Funcao para piscar o led vermelho
-void piscarLEDVermelho() {
+void piscar_led_vermelho() {
     for (int i = 0; i < 3; i++) {
         gpio_put(LED_RED, 1);
         sleep_ms(200);
@@ -140,6 +171,7 @@ void piscarLEDVermelho() {
         sleep_ms(200);
     }
 }
+
 void acionarLEDsEmSequencia() {
     // Liga o LED vermelho por 1 segundo
     gpio_put(LED_RED, 1);
