@@ -3,7 +3,7 @@
 Esta atividade faz parte do curso Embarca Tech e tem como objetivo explorar as funcionalidades do microcontrolador PICO_W.
 
 ## Vídeo Demonstrativo
-[![Assista ao vídeo demonstrativo](https://img.youtube.com/vi/om9FSD7-r70/0.jpg)](https://youtu.be/om9FSD7-r70)
+[![Assista ao vídeo demonstrativo](https://img.youtube.com/vi/om9FSD7-r70/0.jpg)](https://youtu.be/tCuJLA-QZgg)
 
 ## Descrição das Funções
 
