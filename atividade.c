@@ -25,6 +25,7 @@ void init_leds_and_buzzer();
 char get_key();
 void control_led_and_buzzer(char key);
 void piscarLEDVermelho();
+void piscar_led_verde();
 
 // Entrada do Código
 int main() {
@@ -116,6 +117,9 @@ void control_led_and_buzzer(char key) {
         case '4':
             piscarLEDVermelho();
             break;
+        case '5':
+            piscar_led_verde();
+            break;
         case '*':
             gpio_put(BUZZER, 1);
             sleep_ms(500); // Toca o buzzer por 500ms
@@ -126,6 +130,16 @@ void control_led_and_buzzer(char key) {
             break;
     }
 }
+
+void piscar_led_verde() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_GREEN, 1);
+        sleep_ms(200);
+        gpio_put(LED_GREEN, 0);
+        sleep_ms(200);
+    }
+}
+
 
 // Funcao para piscar o led vermelho
 void piscarLEDVermelho() {
