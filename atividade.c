@@ -19,6 +19,32 @@ const uint LED_BLUE  = 10;
 // PINO BUZZER
 const uint BUZZER = 2;
 
+// PROTÓTIPOS DE FUNÇÕES
+void init_keypad();
+void init_leds_and_buzzer();
+char get_key();
+void control_led_and_buzzer(char key);
+void piscarLEDVermelho();
+
+// Entrada do Código
+int main() {
+    //stdio_init_all();
+    init_keypad();
+    init_leds_and_buzzer();
+    printf("Sistema iniciado. Pressione as teclas do teclado.\n");
+
+    while (true) {
+        char key = get_key();
+        if (key) {
+            printf("Tecla pressionada: %c\n", key);
+            control_led_and_buzzer(key);
+        }
+        sleep_ms(50); // Atraso para evitar sobrecarga
+    }
+    return 0;
+}
+
+
 // Função para inicializar o teclado matricial
 void init_keypad() {
     for (int i = 0; i < 4; i++) {
@@ -87,6 +113,9 @@ void control_led_and_buzzer(char key) {
         case '3':
             gpio_put(LED_GREEN, 1); // Liga o LED verde
             break;
+        case '4':
+            piscarLEDVermelho();
+            break;
         case '*':
             gpio_put(BUZZER, 1);
             sleep_ms(500); // Toca o buzzer por 500ms
@@ -98,19 +127,12 @@ void control_led_and_buzzer(char key) {
     }
 }
 
-int main() {
-    //stdio_init_all();
-    init_keypad();
-    init_leds_and_buzzer();
-    printf("Sistema iniciado. Pressione as teclas do teclado.\n");
-
-    while (true) {
-        char key = get_key();
-        if (key) {
-            printf("Tecla pressionada: %c\n", key);
-            control_led_and_buzzer(key);
-        }
-        sleep_ms(50); // Atraso para evitar sobrecarga
+// Funcao para piscar o led vermelho
+void piscarLEDVermelho() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_RED, 1);
+        sleep_ms(200);
+        gpio_put(LED_RED, 0);
+        sleep_ms(200);
     }
-    return 0;
 }
