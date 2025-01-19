@@ -27,6 +27,7 @@ void control_led_and_buzzer(char key);
 void piscar_led_vermelho();
 void piscar_led_verde();
 void piscar_led_azul();
+void acionar_led_sequencia();
 
 // Entrada do Código
 int main() {
@@ -45,7 +46,6 @@ int main() {
     }
     return 0;
 }
-
 
 // Função para inicializar o teclado matricial
 void init_keypad() {
@@ -129,8 +129,14 @@ void control_led_and_buzzer(char key) {
             sleep_ms(500); // Toca o buzzer por 500ms
             gpio_put(BUZZER, 0);
             break;
+        case '#':
+            acionar_led_sequencia();
+            break;
         default: // apaga os leds que estiverem ligados
             printf("Tecla %c pressionada, sem ação definida. Apagando os leds.\n", key);
+            gpio_put(LED_RED, 0);
+            gpio_put(LED_BLUE, 0);
+            gpio_put(LED_GREEN, 0);
             break;
     }
 }
@@ -155,7 +161,6 @@ void piscar_led_azul() {
     }
 }
 
-
 // Funcao para piscar o led vermelho
 void piscar_led_vermelho() {
     for (int i = 0; i < 3; i++) {
@@ -164,4 +169,28 @@ void piscar_led_vermelho() {
         gpio_put(LED_RED, 0);
         sleep_ms(200);
     }
+}
+
+void acionar_led_sequencia() {
+    // Liga o LED vermelho por 1 segundo
+    gpio_put(LED_RED, 1);
+    printf("LED vermelho aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_RED, 0);
+
+    // Liga o LED verde por 1 segundo
+    gpio_put(LED_GREEN, 1);
+    printf("LED verde aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_GREEN, 0);
+
+    // Liga o LED azul por 1 segundo
+    gpio_put(LED_BLUE, 1);
+    printf("LED azul aceso...\n");
+    sleep_ms(1000);
+    gpio_put(LED_BLUE, 0);
+
+    // Mensagem de conclusão
+    printf("Todas as cores do LED foram exibidas.\n");
+    printf("LED RGB está OK. Teste finalizado.\n");
 }
