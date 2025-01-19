@@ -24,7 +24,9 @@ void init_keypad();
 void init_leds_and_buzzer();
 char get_key();
 void control_led_and_buzzer(char key);
-void piscarLEDVermelho();
+void piscar_led_vermelho();
+void piscar_led_verde();
+void piscar_led_azul();
 
 // Entrada do Código
 int main() {
@@ -114,21 +116,48 @@ void control_led_and_buzzer(char key) {
             gpio_put(LED_GREEN, 1); // Liga o LED verde
             break;
         case '4':
-            piscarLEDVermelho();
+            piscar_led_vermelho();
+            break;
+        case '5':
+            piscar_led_verde();
+            break;
+        case '6':
+            piscar_led_azul();
             break;
         case '*':
             gpio_put(BUZZER, 1);
             sleep_ms(500); // Toca o buzzer por 500ms
             gpio_put(BUZZER, 0);
             break;
-        default:
-            printf("Tecla %c pressionada, sem ação definida.\n", key);
+        default: // apaga os leds que estiverem ligados
+            printf("Tecla %c pressionada, sem ação definida. Apagando os leds.\n", key);
             break;
     }
 }
 
+// Funcao para piscar o led verde
+void piscar_led_verde() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_GREEN, 1);
+        sleep_ms(200);
+        gpio_put(LED_GREEN, 0);
+        sleep_ms(200);
+    }
+}
+
+// Funcao para piscar o led azul
+void piscar_led_azul() {
+    for (int i = 0; i < 3; i++) {
+        gpio_put(LED_BLUE, 1);
+        sleep_ms(200);
+        gpio_put(LED_BLUE, 0);
+        sleep_ms(200);
+    }
+}
+
+
 // Funcao para piscar o led vermelho
-void piscarLEDVermelho() {
+void piscar_led_vermelho() {
     for (int i = 0; i < 3; i++) {
         gpio_put(LED_RED, 1);
         sleep_ms(200);
