@@ -129,12 +129,13 @@ void control_led_and_buzzer(char key) {
             sleep_ms(500); // Toca o buzzer por 500ms
             gpio_put(BUZZER, 0);
             break;
-        default:
-            printf("Tecla %c pressionada, sem ação definida.\n", key);
+        default: // apaga os leds que estiverem ligados
+            printf("Tecla %c pressionada, sem ação definida. Apagando os leds.\n", key);
             break;
     }
 }
 
+// Funcao para piscar o led verde
 void piscar_led_verde() {
     for (int i = 0; i < 3; i++) {
         gpio_put(LED_GREEN, 1);
@@ -144,6 +145,7 @@ void piscar_led_verde() {
     }
 }
 
+// Funcao para piscar o led azul
 void piscar_led_azul() {
     for (int i = 0; i < 3; i++) {
         gpio_put(LED_BLUE, 1);
