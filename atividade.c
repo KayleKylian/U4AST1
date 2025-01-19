@@ -124,6 +124,18 @@ void control_led_and_buzzer(char key) {
         case '6':
             piscar_led_azul();
             break;
+        case '7':
+            piscar_led_azul();
+            piscar_led_verde();
+            break;
+        case '8':
+            piscar_led_vermelho();
+            piscar_led_azul();
+            break;
+        case '9':
+            piscar_led_verde();
+            piscar_led_vermelho();
+            break;
         case '*':
             gpio_put(BUZZER, 1);
             sleep_ms(500); // Toca o buzzer por 500ms
